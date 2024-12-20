@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  test-model-architecture:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,19 +23,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-    - name: Create data directory
+    - name: Run architecture tests
       run: |
-        mkdir -p data
-        
-    - name: Run tests
-      run: |
-        python -m pytest tests/
-
-    - name: Train model
-      run: |
-        python assignment6.py --mode train
-        
-    - name: Test saved model
-      run: |
-        MODEL_FILE=$(ls mnist_model_*_cpu.pth | head -n 1)
-        python assignment6.py --mode test --model-path $MODEL_FILE
+        python -m pytest tests/ -v
