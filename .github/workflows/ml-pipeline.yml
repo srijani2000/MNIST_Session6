@@ -25,4 +25,7 @@ jobs:
         
     - name: Run architecture tests
       run: |
+        echo "Running Model Architecture Tests..."
+        echo "=================================="
         python -m pytest tests/ -v
+        echo "=================================="

@@ -5,10 +5,27 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import torch
 from assignment6 import Net
 
-def test_parameter_count():
-    model = Net()
+def count_parameters(model):
+    """Count and format the total number of parameters"""
     total_params = sum(p.numel() for p in model.parameters())
-    assert total_params < 100000, f"Model has {total_params} parameters, which exceeds the limit"
+    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    return {
+        'total_params': total_params,
+        'trainable_params': trainable_params
+    }
+
+def test_parameter_count(capsys):
+    model = Net()
+    params = count_parameters(model)
+    
+    # Print parameter count for GitHub Actions log
+    print("\n" + "="*50)
+    print(f"Model Parameter Count Summary:")
+    print(f"Total Parameters: {params['total_params']:,}")
+    print(f"Trainable Parameters: {params['trainable_params']:,}")
+    print("="*50 + "\n")
+    
+    assert params['total_params'] < 20000, f"Model has {params['total_params']:,} parameters, which exceeds the limit of 20,000"
 
 def test_batch_norm_usage():
     model = Net()
