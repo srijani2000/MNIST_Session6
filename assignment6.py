@@ -180,7 +180,7 @@ def main(mode='train', model_path=None):
         model = Net().to(device)
         optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
         
-        EPOCHS = 5
+        EPOCHS = 15
         for epoch in range(EPOCHS):
             print(f"EPOCH: {epoch}")
             model = train(model, device, train_loader, optimizer, epoch)
