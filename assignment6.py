@@ -162,7 +162,8 @@ def main(mode='train', model_path=None):
     
     # Test loader is needed for both train and test modes
     test_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('../data', train=False, transform=transforms.Compose([
+        datasets.MNIST('../data', train=False, download=True,  # Added download=True
+                      transform=transforms.Compose([
                           transforms.ToTensor(),
                           transforms.Normalize((0.1307,), (0.3081,))
                       ])),
