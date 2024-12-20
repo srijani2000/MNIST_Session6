@@ -23,6 +23,21 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
+    - name: Display Model Summary
+      run: |
+        echo "Model Architecture Summary"
+        echo "========================="
+        python -c "
+        import torch
+        from assignment6 import Net
+        model = Net()
+        total_params = sum(p.numel() for p in model.parameters())
+        trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        print(f'Total Parameters: {total_params:,}')
+        print(f'Trainable Parameters: {trainable_params:,}')
+        "
+        echo "========================="
+        
     - name: Run architecture tests
       run: |
         echo "Running Model Architecture Tests..."
